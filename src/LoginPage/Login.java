@@ -10,10 +10,12 @@ import Config.Session;
 import Config.config;
 import Config.passwordHasher;
 import Users.ForgotPassword;
+import Users.ResetPassword;
 import Users.User;
 import admin.Admins;
 import admin.bookedRooms;
 import java.security.NoSuchAlgorithmException;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -34,52 +36,49 @@ public class Login extends javax.swing.JFrame {
     static String status;
     static String type;
  
-    public static boolean loging_in(String username, String password){
-        
-         config conf = new config();
-        try{
-        String query = "SELECT * FROM users WHERE uname ='"+username+ "' ";
-            ResultSet resultSet = conf.getData(query);
-            if(resultSet.next()){
-                
-             
-                String hashedPass= resultSet.getString("pname");
-                String rehashedPass = passwordHasher.hashPassword(password);
-                
-                  System.out.println(""+hashedPass );
-                   System.out.println(""+ rehashedPass );
-                  
-                     
-                  if ( hashedPass.equals(rehashedPass )){
-                        status = resultSet.getString("status");
+   public static boolean loging_in(String username, String password) {
+    config conf = new config();
+    try {
+        String query = "SELECT * FROM users WHERE uname = ?";
+        PreparedStatement pst = conf.getConnection().prepareStatement(query);
+        pst.setString(1, username);
+        ResultSet resultSet = pst.executeQuery();
+
+        if (resultSet.next()) {
+            String hashedPassFromDB = resultSet.getString("pname");
+            String hashedInputPassword = ResetPassword.hashPassword(password);
+
+            System.out.println("Hashed DB: " + hashedPassFromDB);
+            System.out.println("Hashed Input: " + hashedInputPassword);
+
+            if (hashedPassFromDB.equals(hashedInputPassword)) {
+                status = resultSet.getString("status");
                 type = resultSet.getString("account_type");
-                
-                
-                    Session ses = Session.getInstance();
-                    ses.setId(resultSet.getInt("id") );
-                    ses.setFname(resultSet.getString("fname") );
-                    ses.setLnmae(resultSet.getString("lname") );
-                      ses.setGender(resultSet.getString("gender") );
-                    ses.setAccount_type(resultSet.getString("account_type") );
-                    ses.setEmail(resultSet.getString("email") );
-                    ses.setUname(resultSet.getString("uname") );
-                    ses.setPname(resultSet.getString("pname") );
-                    ses.setContact(resultSet.getString("contact") );
-                    ses.setStatus(resultSet.getString("status") );
-                 return true;
-                  }else{
-                  return false;
-                  }
-                  
-                } else{
-                 return false;
+
+                Session ses = Session.getInstance();
+                ses.setId(resultSet.getInt("id"));
+                ses.setFname(resultSet.getString("fname"));
+                ses.setLnmae(resultSet.getString("lname"));
+                ses.setGender(resultSet.getString("gender"));
+                ses.setAccount_type(resultSet.getString("account_type"));
+                ses.setEmail(resultSet.getString("email"));
+                ses.setUname(resultSet.getString("uname"));
+                ses.setPname(resultSet.getString("pname"));
+                ses.setContact(resultSet.getString("contact"));
+                ses.setStatus(resultSet.getString("status"));
+                return true;
+            } else {
+                return false;
             }
-            
-        }catch(SQLException | NoSuchAlgorithmException ex){
-            return false ;
+        } else {
+            return false;
         }
-       
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        return false;
     }
+}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
