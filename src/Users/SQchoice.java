@@ -97,7 +97,7 @@ private void resetPassword() {
 
         sq.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         sq.setText("jLabel2");
-        jPanel3.add(sq, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 80, 40));
+        jPanel3.add(sq, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 300, 40));
 
         verify.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         verify.setText("VERIFY");

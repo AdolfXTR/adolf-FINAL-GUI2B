@@ -248,34 +248,33 @@ public class Login extends javax.swing.JFrame {
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
 
-        if(loging_in(uname.getText(), pname.getText())){
-            if(!status.equals("Active")){
-                JOptionPane.showMessageDialog(null, "In-Active Account, Contact the Admin!");
-            } else {
-                JOptionPane.showMessageDialog(null, "Login Successfully!");
+       if(loging_in(uname.getText(), pname.getText())){
+    if(!status.equals("Active")){
+        JOptionPane.showMessageDialog(null, "In-Active Account, Contact the Admin!");
+    } else {
+        JOptionPane.showMessageDialog(null, "Login Successfully!");
+        Logs.logFunctionCall(uname.getText() + " logged in successfully");
 
-                Logs.logFunctionCall(uname.getText() + " logged in successfully");
-
-                if(type.equals("Admin")){
-                    Admins usf= new Admins();
-                    usf.setVisible(true);
-                    this.dispose();
-                } else if(type.equals("Receptionist")){
-                    bookedRooms user = new bookedRooms();
-
-                    user.setVisible(true);
-                    user.ApproveBooking.setEnabled(false);
-                    user.jButton2.setEnabled(false);
-                    this.dispose();
-                } else if(type.equals("Client")){
-                    User user = new User();
-                    user.setVisible(true);
-                    this.dispose();
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Login Unsuccessful!");
+        if(type.equals("Admin")){
+            Admins usf= new Admins();
+            usf.setVisible(true);
+            this.dispose();
+        } else if(type.equals("Receptionist")){
+            bookedRooms user = new bookedRooms();
+            user.setVisible(true);
+            user.ApproveBooking.setEnabled(false);
+            user.jButton2.setEnabled(false);
+            this.dispose();
+        } else if(type.equals("Client")){
+            User user = new User();
+            user.setVisible(true);
+            this.dispose();
         }
+    }
+} else {
+    JOptionPane.showMessageDialog(null, "Login Unsuccessful!");
+}
+
 
     }//GEN-LAST:event_loginActionPerformed
 

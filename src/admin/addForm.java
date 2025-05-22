@@ -243,7 +243,7 @@ public static int getHeightFromWidth(String imagePath, int desiredWidth) {
         jPanel9.add(uname, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, 160, -1));
 
         utype.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        utype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Staff" }));
+        utype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Receptionist", "Client" }));
         utype.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 utypeActionPerformed(evt);

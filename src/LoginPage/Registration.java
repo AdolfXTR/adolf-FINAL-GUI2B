@@ -138,7 +138,7 @@ public class Registration extends javax.swing.JFrame {
         jPanel9.add(uname, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 380, 240, -1));
 
         utype.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        utype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Receptionist" }));
+        utype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Receptionist", "Client" }));
         utype.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 utypeActionPerformed(evt);

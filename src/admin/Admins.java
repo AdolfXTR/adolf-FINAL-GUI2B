@@ -37,7 +37,6 @@ public class Admins extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        header14 = new javax.swing.JPanel();
         Acc_lname = new javax.swing.JLabel();
         Acc_fname = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -97,23 +96,19 @@ public class Admins extends javax.swing.JFrame {
         });
         jPanel11.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 560, 210, 50));
 
-        header14.setBackground(new java.awt.Color(0,0,0,60));
-        header14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel11.add(header14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 140));
-
         Acc_lname.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Acc_lname.setForeground(new java.awt.Color(0, 102, 102));
         Acc_lname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Acc_lname.setText("FirstName");
         Acc_lname.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel11.add(Acc_lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 140, 30));
+        jPanel11.add(Acc_lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 140, 30));
 
         Acc_fname.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Acc_fname.setForeground(new java.awt.Color(0, 102, 102));
         Acc_fname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Acc_fname.setText("Lname");
         Acc_fname.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel11.add(Acc_fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 150, 30));
+        jPanel11.add(Acc_fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 150, 30));
 
         jButton2.setBackground(new java.awt.Color(102, 255, 255));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -318,7 +313,6 @@ public class Admins extends javax.swing.JFrame {
     private javax.swing.JLabel AUsers;
     private javax.swing.JLabel Acc_fname;
     private javax.swing.JLabel Acc_lname;
-    private javax.swing.JPanel header14;
     private javax.swing.JPanel header7;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
