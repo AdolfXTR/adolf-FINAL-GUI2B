@@ -33,31 +33,50 @@ private void loadRoomsToTable() {
     DefaultTableModel model = new DefaultTableModel();
     model.setColumnIdentifiers(columnNames);
 
+    String url = "jdbc:mysql://localhost:3306/hotel_management";
+    String username = "root";
+    String password = "";
+
+    // Automatically expire bookings and set rooms to available
+    String updateExpiredSql = "UPDATE booked_rooms b " +
+                              "JOIN rooms r ON b.room_id = r.room_id " +
+                              "SET b.booking_status = 'Expired', r.status = 'Available' " +
+                              "WHERE b.expiration_date <= NOW() AND b.booking_status = 'Booked'";
+
+    // Main query to load room data
     String sql = "SELECT r.room_id, h.hotel_name, r.room_number, r.room_type, r.price, r.status, h.star_rating " +
                  "FROM rooms r JOIN hotels h ON r.hotel_id = h.hotel_id";
 
-    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel_management", "root", "");
-         PreparedStatement pst = conn.prepareStatement(sql);
-         ResultSet rs = pst.executeQuery()) {
-
-        while (rs.next()) {
-            model.addRow(new Object[]{
-                rs.getInt("room_id"),
-                rs.getString("hotel_name"),
-                rs.getString("room_number"),
-                rs.getString("room_type"),
-                rs.getDouble("price"),
-                rs.getString("status"),  // previously: rs.getString("availability")
-                rs.getDouble("star_rating")
-            });
+    try (Connection conn = DriverManager.getConnection(url, username, password)) {
+        // Step 1: Mark expired bookings and free up rooms
+        try (PreparedStatement updatePst = conn.prepareStatement(updateExpiredSql)) {
+            updatePst.executeUpdate();
         }
 
-        jTable1.setModel(model);
+        // Step 2: Load updated room data
+        try (PreparedStatement pst = conn.prepareStatement(sql);
+             ResultSet rs = pst.executeQuery()) {
+
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getInt("room_id"),
+                    rs.getString("hotel_name"),
+                    rs.getString("room_number"),
+                    rs.getString("room_type"),
+                    rs.getDouble("price"),
+                    rs.getString("status"),
+                    rs.getDouble("star_rating")
+                });
+            }
+
+            jTable1.setModel(model);
+        }
 
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(this, "Error loading rooms: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
     }
 }
+
 
 
     /**

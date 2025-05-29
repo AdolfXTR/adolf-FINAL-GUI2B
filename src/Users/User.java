@@ -12,7 +12,8 @@ import java.sql.Connection;
 import javax.swing.JOptionPane;
 import transactions.AvailableRooms;
 import transactions.bookroom;
-import transactions.reservationsandbookings;
+import transactions.bookedPage;
+import transactions.reservationPage;
 import transactions.reserveroom;
 
 /**
@@ -42,7 +43,6 @@ public class User extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        header14 = new javax.swing.JPanel();
         Acc_lname = new javax.swing.JLabel();
         Acc_fname = new javax.swing.JLabel();
         Ausers2 = new javax.swing.JLabel();
@@ -50,6 +50,7 @@ public class User extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -98,25 +99,21 @@ public class User extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel11.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 180, 40));
-
-        header14.setBackground(new java.awt.Color(0,0,0,60));
-        header14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel11.add(header14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 140));
+        jPanel11.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 570, 180, 40));
 
         Acc_lname.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Acc_lname.setForeground(new java.awt.Color(51, 51, 51));
         Acc_lname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Acc_lname.setText("FirstName");
         Acc_lname.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel11.add(Acc_lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 140, 30));
+        jPanel11.add(Acc_lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 140, 30));
 
         Acc_fname.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Acc_fname.setForeground(new java.awt.Color(51, 51, 51));
         Acc_fname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Acc_fname.setText("Lname");
         Acc_fname.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel11.add(Acc_fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 150, 30));
+        jPanel11.add(Acc_fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 150, 30));
 
         Ausers2.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         Ausers2.setForeground(new java.awt.Color(51, 51, 51));
@@ -128,19 +125,19 @@ public class User extends javax.swing.JFrame {
                 Ausers2MouseClicked(evt);
             }
         });
-        jPanel11.add(Ausers2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, 100, 30));
+        jPanel11.add(Ausers2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 520, 100, 30));
 
-        jPanel9.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 200, 570));
+        jPanel9.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 200, 620));
 
         jButton2.setBackground(new java.awt.Color(102, 255, 255));
         jButton2.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
-        jButton2.setText("Your bookings & reservations");
+        jButton2.setText("Your Reservation");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel9.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 340, 320, 170));
+        jPanel9.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 490, 290, 170));
 
         jButton3.setBackground(new java.awt.Color(102, 255, 255));
         jButton3.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
@@ -150,7 +147,7 @@ public class User extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel9.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 290, 190));
+        jPanel9.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, 290, 190));
 
         jButton4.setBackground(new java.awt.Color(102, 255, 255));
         jButton4.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
@@ -160,7 +157,7 @@ public class User extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel9.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 120, 320, 190));
+        jPanel9.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 80, 320, 190));
 
         jButton5.setBackground(new java.awt.Color(102, 255, 255));
         jButton5.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
@@ -170,12 +167,22 @@ public class User extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel9.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 340, 290, 170));
+        jPanel9.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, 290, 170));
+
+        jButton6.setBackground(new java.awt.Color(102, 255, 255));
+        jButton6.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
+        jButton6.setText("Your Bookings");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 300, 320, 170));
 
         getContentPane().add(jPanel9);
-        jPanel9.setBounds(0, 0, 880, 630);
+        jPanel9.setBounds(0, 0, 880, 690);
 
-        setSize(new java.awt.Dimension(883, 634));
+        setSize(new java.awt.Dimension(883, 677));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -217,7 +224,9 @@ public class User extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void Ausers2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Ausers2MouseClicked
-          
+        accountDetails ac = new accountDetails();
+        ac.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_Ausers2MouseClicked
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -233,7 +242,7 @@ public class User extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       reservationsandbookings rrsb = new reservationsandbookings();
+       reservationPage rrsb = new reservationPage();
        rrsb.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -243,6 +252,12 @@ public class User extends javax.swing.JFrame {
         rr.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+      bookedPage rrsb = new bookedPage();
+       rrsb.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -283,12 +298,12 @@ public class User extends javax.swing.JFrame {
     private javax.swing.JLabel Acc_fname;
     private javax.swing.JLabel Acc_lname;
     private javax.swing.JLabel Ausers2;
-    private javax.swing.JPanel header14;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JPanel jPanel10;

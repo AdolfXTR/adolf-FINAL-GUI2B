@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2025 at 07:24 AM
+-- Generation Time: May 28, 2025 at 06:28 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -35,17 +35,20 @@ CREATE TABLE `booked_rooms` (
   `check_out_date` date DEFAULT NULL,
   `num_guests` int(11) DEFAULT NULL,
   `special_requests` text DEFAULT NULL,
-  `booking_status` varchar(20) DEFAULT 'pending'
+  `booking_status` varchar(20) DEFAULT 'pending',
+  `expiration_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `booked_rooms`
 --
 
-INSERT INTO `booked_rooms` (`booking_id`, `room_id`, `user_id`, `check_in_date`, `check_out_date`, `num_guests`, `special_requests`, `booking_status`) VALUES
-(1, 1, 16, '2025-05-19', '2025-05-24', 4, 'None', 'pending'),
-(2, 2, 16, '2025-05-20', '2025-05-24', 6, 'None', 'approved'),
-(3, 22, 16, '2025-05-21', '2025-05-22', 5, 'None', 'pending');
+INSERT INTO `booked_rooms` (`booking_id`, `room_id`, `user_id`, `check_in_date`, `check_out_date`, `num_guests`, `special_requests`, `booking_status`, `expiration_date`) VALUES
+(1, 1, 16, '2025-05-19', '2025-05-24', 4, 'None', 'pending', '2025-05-28 15:12:55'),
+(2, 2, 16, '2025-05-20', '2025-05-24', 6, 'None', 'approved', '2025-05-28 15:12:55'),
+(3, 22, 16, '2025-05-21', '2025-05-22', 5, 'None', 'pending', '2025-05-28 15:12:55'),
+(4, 13, 19, '2025-05-28', '2025-05-30', 6, 'None', 'pending', '2025-05-28 15:12:55'),
+(5, 15, 18, '2025-05-28', '2025-05-31', 3, 'None', 'approved', '2025-05-28 15:38:28');
 
 -- --------------------------------------------------------
 
@@ -164,7 +167,28 @@ INSERT INTO `function_logs` (`id`, `user_id`, `function_name`, `log_time`) VALUE
 (98, NULL, 'User changed their passworduser', '2025-05-22 03:51:58'),
 (99, NULL, 'adolf123 logged in successfully', '2025-05-22 05:16:34'),
 (100, NULL, 'Admin updated user with ID: 19', '2025-05-22 05:17:00'),
-(101, NULL, 'Admin updated user with ID: 16', '2025-05-22 05:17:27');
+(101, NULL, 'Admin updated user with ID: 16', '2025-05-22 05:17:27'),
+(102, NULL, 'User changed their passwordadolf123', '2025-05-28 14:54:20'),
+(103, NULL, 'adolf123 logged in successfully', '2025-05-28 14:54:30'),
+(104, NULL, 'adolf123 logged in successfully', '2025-05-28 14:54:39'),
+(105, NULL, 'adolf123 logged in successfully', '2025-05-28 14:54:42'),
+(106, NULL, 'adolf123 logged in successfully', '2025-05-28 14:55:20'),
+(107, NULL, 'adolf123 logged in successfully', '2025-05-28 14:56:36'),
+(108, NULL, 'adolf123 logged in successfully', '2025-05-28 14:56:56'),
+(109, NULL, 'adolf123 logged in successfully', '2025-05-28 15:03:46'),
+(110, NULL, 'User changed their passwordalcaya123', '2025-05-28 15:33:39'),
+(111, NULL, 'alcaya123 logged in successfully', '2025-05-28 15:33:51'),
+(112, NULL, 'alcaya123 logged in successfully', '2025-05-28 15:37:04'),
+(113, NULL, 'alcaya123 logged in successfully', '2025-05-28 15:41:00'),
+(114, NULL, 'alcaya123 logged in successfully', '2025-05-28 15:41:41'),
+(115, NULL, 'alcaya123 logged in successfully', '2025-05-28 15:43:42'),
+(116, NULL, 'adolf123 logged in successfully', '2025-05-28 15:44:10'),
+(117, NULL, 'adolf123 logged in successfully', '2025-05-28 15:44:36'),
+(118, NULL, 'alcaya123 logged in successfully', '2025-05-28 15:45:28'),
+(119, NULL, 'alcaya123 logged in successfully', '2025-05-28 15:55:17'),
+(120, NULL, 'alcaya123 logged in successfully', '2025-05-28 16:01:04'),
+(121, NULL, 'alcaya123 logged in successfully', '2025-05-28 16:20:57'),
+(122, NULL, 'alcaya123 logged in successfully', '2025-05-28 16:24:07');
 
 -- --------------------------------------------------------
 
@@ -210,15 +234,17 @@ CREATE TABLE `reserved_rooms` (
   `check_in_date` date DEFAULT NULL,
   `check_out_date` date DEFAULT NULL,
   `num_guests` int(11) DEFAULT NULL,
-  `special_requests` text DEFAULT NULL
+  `special_requests` text DEFAULT NULL,
+  `expiration_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `reserved_rooms`
 --
 
-INSERT INTO `reserved_rooms` (`reservation_id`, `room_id`, `user_id`, `reservation_status`, `check_in_date`, `check_out_date`, `num_guests`, `special_requests`) VALUES
-(1, 8, 16, 'approved', '2025-05-21', '2025-05-22', 4, 'None');
+INSERT INTO `reserved_rooms` (`reservation_id`, `room_id`, `user_id`, `reservation_status`, `check_in_date`, `check_out_date`, `num_guests`, `special_requests`, `expiration_date`) VALUES
+(1, 8, 16, 'approved', '2025-05-21', '2025-05-22', 4, 'None', '2025-05-28 15:22:23'),
+(2, 18, 18, 'approved', '2025-05-28', '2025-05-30', 12, 'None', '2025-05-28 15:35:06');
 
 -- --------------------------------------------------------
 
@@ -247,12 +273,12 @@ INSERT INTO `rooms` (`room_id`, `hotel_id`, `room_number`, `room_type`, `price`,
 (10, 2, '4', 'Casual', 2500.00, 'not available'),
 (11, 2, '5', 'Suite', 6000.00, 'available'),
 (12, 2, '6', 'Family', 3500.00, 'available'),
-(13, 2, '7', 'Deluxe', 3200.00, 'available'),
+(13, 2, '7', 'Deluxe', 3200.00, 'not available'),
 (14, 2, '8', 'Casual', 2500.00, 'not available'),
-(15, 2, '9', 'VIP', 5000.00, 'available'),
+(15, 2, '9', 'VIP', 5000.00, 'not available'),
 (16, 2, '10', 'Suite', 6200.00, 'available'),
 (17, 2, '11', 'Family', 3600.00, 'not available'),
-(18, 2, '12', 'Casual', 2400.00, 'available'),
+(18, 2, '12', 'Casual', 2400.00, 'not available'),
 (19, 2, '13', 'Deluxe', 3100.00, 'available'),
 (20, 2, '14', 'VIP', 5200.00, 'not available'),
 (21, 2, '15', 'Family', 3700.00, 'available'),
@@ -292,8 +318,8 @@ INSERT INTO `users` (`id`, `fname`, `lname`, `gender`, `account_type`, `email`, 
 (15, 'adminis', 'admin', 'Male', 'Admin', 'adminis@gmail.com', 'administrator', 'LINbqJZtkCEg+0UEA3+tNO/6S5Rh6YjkxNoHOtUNroI=', '0987654321', 'Active', '', 'What is your Code name?', 'Babylonian'),
 (16, 'user', 'user', 'Male', 'Admin', 'user@gmail.com', 'user', '84c4413971b9a2581540ad5d3424faa3eed5fdba34221c4d450398f32c8920bc', '092323543554', 'Active', 'src/Images/billingpic.png', 'What\'s your favorite food?', 'yes'),
 (17, 'testtttt', 'rsttttt', 'Male', 'Admin', 'tedt@gmail.com', 'test123456', 'h3bxCOJHqx4rMjBCwEnCZkB8gfutQb3h6N/Bu2b9Jn4=', '092632323', 'Active', '', 'What\'s your favorite food?', 'no'),
-(18, 'Thelma', 'Brooklyn', 'Female', 'Receptionist', 'test1233@gmail.com', 'Assistant', 'LINbqJZtkCEg+0UEA3+tNO/6S5Rh6YjkxNoHOtUNroI=', '09232435454', 'Active', '', 'What is your Code name?', 'Bear'),
-(19, 'Adolf', 'Borja', 'Male', 'S', 'adolf@gmail.com', 'adolf123', 'DNPZqMo10kNNVXdENYxfQft5bsZLUTguRef5I2b8BS4=', '09914410936', 'Active', '', 'What is your favorite place?', 'naga');
+(18, 'Thelma', 'Brooklyn', 'Female', 'Client', 'test1233@gmail.com', 'alcaya123', 'ba72a5c8d942b7678c32a54110b2d65dde3f28021e0836de054267b359256725', '09232435454', 'Active', '', 'What is your Code name?', 'Bear'),
+(19, 'Adolf', 'Borja', 'Male', 'Admin', 'adolf@gmail.com', 'adolf123', 'cb997e6a552a1918d93f5acbc11d554ff3a35679abd4a42920b7f5f45f57baaa', '09914410936', 'Active', '', 'What is your favorite place?', 'naga');
 
 --
 -- Indexes for dumped tables
@@ -349,13 +375,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `booked_rooms`
 --
 ALTER TABLE `booked_rooms`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `function_logs`
 --
 ALTER TABLE `function_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 
 --
 -- AUTO_INCREMENT for table `hotels`
@@ -367,7 +393,7 @@ ALTER TABLE `hotels`
 -- AUTO_INCREMENT for table `reserved_rooms`
 --
 ALTER TABLE `reserved_rooms`
-  MODIFY `reservation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `reservation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `rooms`

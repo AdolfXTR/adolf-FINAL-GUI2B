@@ -163,7 +163,7 @@ public class AddHotel extends javax.swing.JFrame {
                 addhotelActionPerformed(evt);
             }
         });
-        jPanel4.add(addhotel, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 280, 270, 50));
+        jPanel4.add(addhotel, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 280, 280, 50));
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton1.setText("Back");
@@ -177,6 +177,7 @@ public class AddHotel extends javax.swing.JFrame {
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 830, 420));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void addhotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addhotelActionPerformed

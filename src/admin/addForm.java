@@ -415,7 +415,6 @@ public static int getHeightFromWidth(String imagePath, int desiredWidth) {
 
         cancel.setBackground(new java.awt.Color(0, 255, 255));
         cancel.setText("CANCEL");
-        cancel.setEnabled(false);
         cancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cancelMouseClicked(evt);

@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -32,11 +33,54 @@ public class bookroom extends javax.swing.JFrame {
        loadAllRoomsToTable();
        
     }
-private void loadAllRoomsToTable() {
-    String[] columnNames = {
-        "Room ID", "Hotel Name", "Room Number", "Room Type", "Price", "Room Status"
-    };
+    
+    public void bookRoom(int userId, int roomId, String checkInDate, String checkOutDate) {
+    String url = "jdbc:mysql://localhost:3306/hotel_management";
+    String username = "root";
+    String password = "";
 
+    // Calculate expiration date = checkOutDate + 1 hour
+    LocalDateTime expiration = LocalDateTime.parse(checkOutDate).plusHours(1);
+    String expirationDate = expiration.toString(); 
+
+    String insertBookingSql = "INSERT INTO booked_rooms (user_id, room_id, check_in_date, check_out_date, expiration_date, booking_status) " +
+                              "VALUES (?, ?, ?, ?, ?, 'Booked')";
+
+    String updateRoomSql = "UPDATE rooms SET status = 'Unavailable' WHERE room_id = ?";
+
+    try (Connection conn = DriverManager.getConnection(url, username, password)) {
+        conn.setAutoCommit(false); // Begin transaction
+
+        try (PreparedStatement insertPst = conn.prepareStatement(insertBookingSql);
+             PreparedStatement updateRoomPst = conn.prepareStatement(updateRoomSql)) {
+
+            insertPst.setInt(1, userId);
+            insertPst.setInt(2, roomId);
+            insertPst.setString(3, checkInDate);
+            insertPst.setString(4, checkOutDate);
+            insertPst.setString(5, expirationDate);
+            insertPst.executeUpdate();
+
+            updateRoomPst.setInt(1, roomId);
+            updateRoomPst.executeUpdate();
+
+            conn.commit();
+            JOptionPane.showMessageDialog(null, "Room successfully booked!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            conn.rollback();
+            JOptionPane.showMessageDialog(null, "Booking failed: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Database connection error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+    
+    
+    
+private void loadAllRoomsToTable() {
+    String[] columnNames = {"Room ID", "Hotel Name", "Room Number", "Room Type", "Price", "Room Status"};
     DefaultTableModel model = new DefaultTableModel();
     model.setColumnIdentifiers(columnNames);
 
@@ -44,34 +88,41 @@ private void loadAllRoomsToTable() {
     String username = "root";
     String password = "";
 
-    String sql = "SELECT r.room_id, h.hotel_name, r.room_number, r.room_type, r.price, r.status " +
-                 "FROM rooms r " +
-                 "JOIN hotels h ON r.hotel_id = h.hotel_id " +
-                 "ORDER BY r.room_id DESC";
+    String updateExpiredSql = "UPDATE booked_rooms b " +
+                              "JOIN rooms r ON b.room_id = r.room_id " +
+                              "SET b.booking_status = 'Expired', r.status = 'Available' " +
+                              "WHERE b.expiration_date <= NOW() AND b.booking_status = 'Booked'";
 
-    try (Connection conn = DriverManager.getConnection(url, username, password);
-         PreparedStatement pst = conn.prepareStatement(sql);
-         ResultSet rs = pst.executeQuery()) {
+    String selectSql = "SELECT r.room_id, h.hotel_name, r.room_number, r.room_type, r.price, r.status " +
+                       "FROM rooms r JOIN hotels h ON r.hotel_id = h.hotel_id ORDER BY r.room_id DESC";
 
-        while (rs.next()) {
-            model.addRow(new Object[]{
-                rs.getInt("room_id"),
-                rs.getString("hotel_name"),
-                rs.getString("room_number"),
-                rs.getString("room_type"),
-                rs.getDouble("price"),
-                rs.getString("status")
-            });
+    try (Connection conn = DriverManager.getConnection(url, username, password)) {
+        try (PreparedStatement updatePst = conn.prepareStatement(updateExpiredSql)) {
+            updatePst.executeUpdate();
         }
 
-        jTable1.setModel(model);
+        try (PreparedStatement pst = conn.prepareStatement(selectSql);
+             ResultSet rs = pst.executeQuery()) {
+
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getInt("room_id"),
+                    rs.getString("hotel_name"),
+                    rs.getString("room_number"),
+                    rs.getString("room_type"),
+                    rs.getDouble("price"),
+                    rs.getString("status")
+                });
+            }
+
+            jTable1.setModel(model);
+        }
 
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(this, "Error loading room data: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
     }
 }
-
-    /**
+ /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
      * regenerated by the Form Editor.
@@ -168,7 +219,7 @@ private void loadAllRoomsToTable() {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
         );
 
         pack();

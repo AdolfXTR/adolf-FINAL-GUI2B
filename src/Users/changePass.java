@@ -44,7 +44,6 @@ public class changePass extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
-        header14 = new javax.swing.JPanel();
         Acc_fname = new javax.swing.JLabel();
         Acc_lname = new javax.swing.JLabel();
         conpass = new javax.swing.JPasswordField();
@@ -100,23 +99,19 @@ public class changePass extends javax.swing.JFrame {
         jPanel11.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        header14.setBackground(new java.awt.Color(0,0,0,60));
-        header14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel11.add(header14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, 130));
-
         Acc_fname.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Acc_fname.setForeground(new java.awt.Color(255, 255, 255));
         Acc_fname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Acc_fname.setText("Lname");
         Acc_fname.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel11.add(Acc_fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 150, 30));
+        jPanel11.add(Acc_fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 150, 30));
 
         Acc_lname.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Acc_lname.setForeground(new java.awt.Color(255, 255, 255));
         Acc_lname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Acc_lname.setText("FirstName");
         Acc_lname.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel11.add(Acc_lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 140, 30));
+        jPanel11.add(Acc_lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 140, 30));
 
         jPanel9.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 150, 380));
 
@@ -299,7 +294,6 @@ public class changePass extends javax.swing.JFrame {
     private javax.swing.JLabel Acc_fname;
     private javax.swing.JLabel Acc_lname;
     private javax.swing.JPasswordField conpass;
-    private javax.swing.JPanel header14;
     private javax.swing.JLabel idDisplay;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel16;
